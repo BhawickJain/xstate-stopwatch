@@ -9,19 +9,9 @@ interface LayoutProps {
 }
 
 const name = "xstate stopwatch";
-export const siteTitle = "My first Next.js Site!";
+export const siteTitle = "xstate stopwatch";
 
-/**
- * To use this container class inside components/layout.js, you need to:
- * - Import the CSS file and assign a name to it, like styles
- * - Use styles.container as the className
- *
- * This is what CSS Modules does: It automatically generates unique
- * class names. As long as you use CSS Modules, you don’t have to worry
- * about class name collisions.
- *
- */
-export default function Layout({ children, home }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <div className={styles.container}>
       <Head>
