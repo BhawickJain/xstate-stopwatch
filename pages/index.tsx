@@ -17,15 +17,17 @@ export default function Home({}: HomeProps) {
         </Head>
         <section className={clss(utilStyles.headingMd)}>
           <p>
-          A stopwatch created using <a href='https://xstate.js.org/'>xState</a>. 
+            A stopwatch created using{" "}
+            <a href="https://xstate.js.org/">xState</a>.
           </p>
           <p>
-          Using a state-machine allows you to more clearly describe the behaviour of a machine.
+            Using a state-machine allows you to more clearly describe the
+            behaviour of a machine.
           </p>
         </section>
         <hr />
         <section className={clss("flex-row", "justify-center")}>
-        <Stopwatch />
+          <Stopwatch />
         </section>
       </>
     </Layout>

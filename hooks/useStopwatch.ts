@@ -1,6 +1,6 @@
 import { useMachine } from "@xstate/react";
 import { useRef, useState } from "react";
-import { createStopwatchMachine } from "./createStopwatchMachine";
+import { createStopwatchMachine } from "../utils/createStopwatchMachine";
 
 export function useStopwatch(): [(action: string) => void, number] {
   const [time, setTime] = useState(0);
