@@ -1,71 +1,33 @@
-import { useMachine } from "@xstate/react"
-import { millisecondsToMinutes, millisecondsToSeconds, minutesToMilliseconds, secondsToMilliseconds } from "date-fns"
-import { useRef, useState } from "react"
-import { Machine } from "xstate"
+import { CSSProperties, StyleHTMLAttributes } from "react";
+import { clss } from "../utils/classnames";
+import { formatMillisecondsToReadable } from "../utils/formatMilliseconds";
+import { useStopwatch } from "../utils/useStopwatch";
 
-interface StopwatchProps {
+export function Stopwatch(): JSX.Element {
+  const [send, time] = useStopwatch();
 
+  return (
+    <div id='stopwatch' className={clss("stopwatch", "mt-1")}>
+      <div className={clss("display", "flex-col", "justify-center")} style={displayStyle}>{formatMillisecondsToReadable(time)}</div>
+      <div className={clss("control", "flex-row", "flex-gap-1")}>
+        <button style={buttonStyle} onClick={() => send("START")}>start</button>
+        <button style={buttonStyle} onClick={() => send("PAUSE")}>stop</button>
+        <button style={buttonStyle} onClick={() => send("RESET")}>reset</button>
+      </div>
+    </div>
+  );
 }
 
-export function Stopwatch({}: StopwatchProps): JSX.Element {
-	const [time, setTime] = useState(0)
-	const intervalRef = useRef<number>()
+const displayStyle: CSSProperties = {
+	fontFamily: "monospace"
+}
 
-	const handleStart = () => {
-		intervalRef.current = window.setInterval(() => setTime((prev) => prev + 10), 10)
-	}
-	const handleStop = () => {
-		window.clearInterval(intervalRef.current)
-	}
-	const handleReset = () => {
-		window.clearInterval(intervalRef.current)
-		setTime(0)
-	}
-
-	const [stopwatchMachine, send]= useMachine(
-		Machine({
-			initial: "idle",
-			states: {
-				idle: {
-					on: {
-						START: "running"
-					},
-					entry: handleReset
-				},
-				running: {
-					on: {
-						PAUSE: "paused"
-					},
-					entry: handleStart
-				},
-				paused: {
-					on: {
-						RESET: "idle",
-						START: "running"
-					},
-					entry: handleStop
-				}
-			}
-		})
-	)
-
-	const formatTime = (time: number) => {
-		const minutes = Math.floor(millisecondsToMinutes(time))
-		const seconds = millisecondsToSeconds(time - minutesToMilliseconds(minutes))
-		const milliseconds =  (time - minutesToMilliseconds(minutes) - secondsToMilliseconds(seconds))/10
-
-		return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${milliseconds.toString().padStart(2, '0')}`
-	}
-
-
-	return (
-        <section className="stopwatch">
-          <div className="display">{formatTime(time)}</div>
-          <div className="control">
-            <button onClick={() => send("START")}>start</button>
-            <button onClick={() => send("PAUSE")}>stop</button>
-            <button onClick={() => send("RESET")}>reset</button>
-          </div>
-        </section>
-	)
+const buttonStyle: CSSProperties = {
+	background: "var(--background)",
+	color: "var(--text)",
+	fontSize: "1rem",
+	fontWeight: "bold",
+	padding: "0.5rem 1rem",
+	borderRadius: "0.5rem",
+	border: "solid 1px var(--border)"
 }

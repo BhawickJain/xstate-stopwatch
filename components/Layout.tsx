@@ -40,9 +40,9 @@ export default function Layout({ children, home }: LayoutProps) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
-          <>
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
+        <>
+          <h1 className={utilStyles.heading2Xl}>{name}</h1>
+        </>
       </header>
       <main>{children}</main>
     </div>

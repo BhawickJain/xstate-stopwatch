@@ -65,3 +65,36 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.flex-col {
+  display: flex;
+  flex-direction: col;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.flex-gap-0 {
+  gap: 0.25rem;
+}
+
+.flex-gap-1 {
+  gap: 0.50rem;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+#stopwatch * {
+  font-size: 3rem;
+}
